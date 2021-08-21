@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import styled from '@emotion/styled';
 import { MODAL_TYPE, useModalContext } from 'contexts/ModalContext';
-import styled from 'styled-components';
 
 export const MODAL_Z_INDEX = 1000;
 

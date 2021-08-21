@@ -1,6 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 
 import { ViewStackManager } from 'components/generic';
+import { SprintContextProvider } from 'contexts/SprintContext';
 import {
   useViewStackContext,
   ViewStackContextType,
@@ -31,7 +32,11 @@ const SprintManager = () => {
     });
   }, [emptyStack, pushView]);
 
-  return <ViewStackManager stackerContext={SprintManagerViewStackContext} />;
+  return (
+    <SprintContextProvider>
+      <ViewStackManager stackerContext={SprintManagerViewStackContext} />
+    </SprintContextProvider>
+  );
 };
 
 const SprintManagerViewStackProvider = () => (

@@ -4,7 +4,7 @@ import Button from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Textfield from '@atlaskit/textfield';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Member } from 'types';
 
 const RootContainer = styled.div`

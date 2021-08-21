@@ -3,18 +3,27 @@ import { useCallback, useMemo, useState } from 'react';
 import Button from '@atlaskit/button';
 import ViewStackManager from 'components/generic/ViewStackManager';
 import { SprintManagerViewStackContext } from 'components/SprintManager';
+import { useSprintContext } from 'contexts/SprintContext';
 import { useViewStackContext } from 'contexts/ViewStackContext';
 import { Member } from 'types';
 
+import Views from '../../views';
 import { MemberList } from './components';
 
 const ViewUI = ViewStackManager.Styled;
 
+const strings = {
+  title: `Sprint contributors`,
+  buttons: {
+    next: 'Next: Days in sprint',
+    back: 'Back',
+  },
+};
+
 const MemberEditorView = () => {
-  const [members, setMembers] = useState<Member[]>([]);
-  const { pushView, popView } = useViewStackContext(
-    SprintManagerViewStackContext
-  );
+  const { sprintState, updateSprintValue } = useSprintContext();
+  const [members, setMembers] = useState<Member[]>(sprintState.members);
+  const { pushView } = useViewStackContext(SprintManagerViewStackContext);
 
   const isContinueButtonEnabled = useMemo(
     () => members.some((member) => member.isEnabled),
@@ -22,21 +31,17 @@ const MemberEditorView = () => {
   );
 
   const handleConfirm = useCallback(() => {
+    updateSprintValue('members', members);
+
     pushView({
-      title: 'hi',
-      component: MemberEditorView,
+      title: 'Sprint contributors',
+      component: Views.SprintLengthEditor,
     });
-  }, [pushView]);
+  }, [members, pushView, updateSprintValue]);
 
   return (
     <ViewUI.Container>
-      <ViewUI.PageHeader
-        breadcrumbs={
-          <ViewUI.BackButton onClick={popView}>Back</ViewUI.BackButton>
-        }
-      >
-        Member Editor
-      </ViewUI.PageHeader>
+      <ViewUI.PageHeader>{strings.title}</ViewUI.PageHeader>
       <ViewUI.Body>
         <MemberList
           members={members}
@@ -49,7 +54,7 @@ const MemberEditorView = () => {
           appearance={'primary'}
           onClick={handleConfirm}
         >
-          Next: Days in sprint
+          {strings.buttons.next}
         </Button>
       </ViewUI.Footer>
     </ViewUI.Container>

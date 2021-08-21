@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
 import Button from '@atlaskit/button';
+import { Label } from '@atlaskit/field-base';
 import { colors } from '@atlaskit/theme';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Member } from 'types';
 import * as uuid from 'uuid';
 
@@ -34,7 +35,7 @@ const columns = [
     width: 110,
   },
   {
-    title: 'Vacation Days',
+    title: 'Days off',
     width: 100,
   },
 ];
@@ -87,7 +88,12 @@ const MemberList = ({ members, onChange }: Props) => {
       {members.length > 0 && (
         <ColumnContainer>
           {columns.map((column) => (
-            <p style={{ width: column.width, margin: 0 }}>{column.title}</p>
+            <div
+              key={`member-column-${column.title}`}
+              style={{ width: column.width }}
+            >
+              <Label label={column.title} />
+            </div>
           ))}
         </ColumnContainer>
       )}

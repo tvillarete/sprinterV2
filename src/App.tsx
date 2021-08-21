@@ -1,5 +1,5 @@
+import styled from '@emotion/styled';
 import SprintManager from 'components/SprintManager';
-import styled from 'styled-components';
 
 const RootContainer = styled.div`
   display: flex;

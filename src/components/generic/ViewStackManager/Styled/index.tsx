@@ -1,7 +1,7 @@
 import Button from '@atlaskit/button';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import PageHeader from '@atlaskit/page-header';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: grid;

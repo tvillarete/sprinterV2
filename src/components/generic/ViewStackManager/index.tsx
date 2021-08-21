@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {} from 'contexts/ModalContext';
 import {
   useViewStackContext,
@@ -6,7 +7,6 @@ import {
   ViewStackContextType,
 } from 'contexts/ViewStackContext';
 import { AnimatePresence, motion } from 'framer-motion';
-import styled from 'styled-components';
 
 import Styled from './Styled';
 
@@ -66,7 +66,6 @@ export const ViewStackManager = ({ stackerContext, ...props }: Props) => {
     <RootContainer {...props}>
       <AnimatePresence>
         {views.map((view, idx) => {
-          console.log({ view });
           return (
             <BaseFrame key={view.id} stack={views} view={view} idx={idx} />
           );

@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { css, Global } from '@emotion/react';
 import { ModalManager } from 'components/generic';
 import { ModalContextProvider } from 'contexts/ModalContext';
-import { createGlobalStyle } from 'styled-components';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = css`
   body {
     margin: 0;
-    background: #FAFBFC;
+    background: #fafbfc;
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -25,13 +25,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
+  <>
+    <Global styles={GlobalStyle} />
     <ModalContextProvider>
       <ModalManager />
       <App />
     </ModalContextProvider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 
