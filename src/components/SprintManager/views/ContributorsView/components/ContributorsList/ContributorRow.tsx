@@ -5,7 +5,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Textfield from '@atlaskit/textfield';
 import styled from '@emotion/styled';
-import { Member } from 'types';
+import { Contributor } from 'types';
 
 const RootContainer = styled.div`
   margin-top: 12px;
@@ -18,27 +18,27 @@ const StyledTextfield = styled(Textfield)`
 `;
 
 interface Props {
-  member: Member;
-  onChange: (updatedMember: Member) => void;
-  onDelete: (deletedMember: Member) => void;
+  contributor: Contributor;
+  onChange: (updatedContributor: Contributor) => void;
+  onDelete: (deletedContributor: Contributor) => void;
 }
 
-const MemberRow = ({ member, onChange, onDelete }: Props) => {
-  const { isEnabled } = member;
+const ContributorRow = ({ contributor, onChange, onDelete }: Props) => {
+  const { isEnabled } = contributor;
 
-  const handleMemberChange = useCallback(
+  const handleContributorChange = useCallback(
     (
       field: 'isEnabled' | 'name' | 'percentWorking' | 'vacationDays',
       value: string | number | boolean
     ) => {
-      const updatedMember: Member = {
-        ...member,
+      const updatedContributor: Contributor = {
+        ...contributor,
         [field]: value,
       };
 
-      onChange(updatedMember);
+      onChange(updatedContributor);
     },
-    [member, onChange]
+    [contributor, onChange]
   );
 
   return (
@@ -47,7 +47,7 @@ const MemberRow = ({ member, onChange, onDelete }: Props) => {
         isChecked={isEnabled}
         size={'large'}
         onChange={(event) =>
-          handleMemberChange('isEnabled', event.currentTarget.checked)
+          handleContributorChange('isEnabled', event.currentTarget.checked)
         }
         name="checkbox-default"
       />
@@ -55,35 +55,35 @@ const MemberRow = ({ member, onChange, onDelete }: Props) => {
         isDisabled={!isEnabled}
         width={200}
         placeholder={'Name'}
-        value={member.name}
+        value={contributor.name}
         onChange={(event) =>
-          handleMemberChange('name', event.currentTarget.value)
+          handleContributorChange('name', event.currentTarget.value)
         }
       />
       <StyledTextfield
-        value={member.percentWorking}
+        value={contributor.percentWorking}
         isDisabled={!isEnabled}
         width={100}
         type={'number'}
         min={0}
         max={100}
         onChange={(event) =>
-          handleMemberChange('percentWorking', event.currentTarget.value)
+          handleContributorChange('percentWorking', event.currentTarget.value)
         }
       />
       <StyledTextfield
-        value={member.vacationDays}
+        value={contributor.vacationDays}
         isDisabled={!isEnabled}
         width={100}
         type={'number'}
         min={0}
         placeholder="0"
         onChange={(event) =>
-          handleMemberChange('vacationDays', event.currentTarget.value)
+          handleContributorChange('vacationDays', event.currentTarget.value)
         }
       />
       <Button
-        onClick={() => onDelete(member)}
+        onClick={() => onDelete(contributor)}
         iconBefore={<CrossIcon label="Cross icon" size="small" />}
         appearance="subtle"
       />
@@ -91,4 +91,4 @@ const MemberRow = ({ member, onChange, onDelete }: Props) => {
   );
 };
 
-export default MemberRow;
+export default ContributorRow;

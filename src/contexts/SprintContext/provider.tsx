@@ -2,10 +2,10 @@ import React, { createContext, useState } from 'react';
 
 import { nextMonday } from 'date-fns/esm';
 import { DateTime } from 'luxon';
-import { Member } from 'types';
+import { Contributor } from 'types';
 
 export interface SprintContextState {
-  members: Member[];
+  contributors: Contributor[];
   startDate: DateTime;
   endDate: DateTime;
   numHolidays: number;
@@ -17,7 +17,7 @@ type SprintContextType = [
 ];
 
 const defaultState: SprintContextState = {
-  members: [],
+  contributors: [],
   startDate: DateTime.fromJSDate(nextMonday(Date.now())),
   endDate: DateTime.fromJSDate(nextMonday(Date.now())).plus({ days: 14 }),
   numHolidays: 0,

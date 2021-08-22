@@ -1,8 +1,8 @@
-import MemberEditorView from './MemberEditorView';
+import ContributorsView from './ContributorsView';
 import SprintLengthEditorView from './SprintLengthEditorView';
 
 const Views = {
-  MemberEditor: MemberEditorView,
+  Contributors: ContributorsView,
   SprintLengthEditor: SprintLengthEditorView,
 };
 

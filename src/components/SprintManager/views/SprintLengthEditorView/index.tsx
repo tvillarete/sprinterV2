@@ -4,7 +4,6 @@ import Button from '@atlaskit/button';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
-import { colors } from '@atlaskit/theme';
 import styled from '@emotion/styled';
 import ViewStackManager from 'components/generic/ViewStackManager';
 import { SprintManagerViewStackContext } from 'components/SprintManager';
@@ -16,23 +15,13 @@ import { getNumBusinessDays } from 'utils/date';
 
 const ViewUI = ViewStackManager.Styled;
 
-const DayCountText = styled.h2`
-  margin: 1rem 0 0;
-  padding-top: 1rem;
-  text-align: right;
-  border-top: 1px solid ${colors.N30};
-  color: ${colors.N800};
-  font-size: 24px;
-  font-weight: 700;
-`;
+const DateContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
-const DayCountSubtext = styled(DayCountText)`
-  margin: 0;
-  border-top: none;
-  padding-top: 0;
-  font-weight: 500;
-  font-size: 14px;
-  color: ${colors.N400A};
+  > div:first-of-type {
+    margin-right: 1rem !important;
+  }
 `;
 
 const weekendFilter = (date: string) => {
@@ -48,7 +37,7 @@ const strings = {
   excludesWeekends: `Excludes weekends & holidays`,
   buttons: {
     next: 'Next: Something',
-    back: 'Sprint contributors',
+    previous: 'Previous',
   },
 };
 
@@ -80,37 +69,31 @@ const SprintLengthEditorView = () => {
 
   return (
     <ViewUI.Container>
-      <ViewUI.PageHeader
-        breadcrumbs={
-          <ViewUI.BackButton onClick={popView}>
-            {strings.buttons.back}
-          </ViewUI.BackButton>
-        }
-      >
-        {strings.title}
-      </ViewUI.PageHeader>
+      <ViewUI.PageHeader>{strings.title}</ViewUI.PageHeader>
       <ViewUI.Body>
-        <Field name="startDate" label="Start date">
-          {() => (
-            <DatePicker
-              onChange={(date) => setStartDate(date)}
-              value={startDate}
-              minDate={DateTime.now().toString()}
-              maxDate={endDate}
-              disabledDateFilter={weekendFilter}
-            />
-          )}
-        </Field>
-        <Field name="endDate" label="End date">
-          {() => (
-            <DatePicker
-              value={endDate}
-              minDate={startDate}
-              disabledDateFilter={weekendFilter}
-              onChange={(date) => setEndDate(date)}
-            />
-          )}
-        </Field>
+        <DateContainer>
+          <Field name="startDate" label="Start date">
+            {() => (
+              <DatePicker
+                onChange={(date) => setStartDate(date)}
+                value={startDate}
+                minDate={DateTime.now().toString()}
+                maxDate={endDate}
+                disabledDateFilter={weekendFilter}
+              />
+            )}
+          </Field>
+          <Field name="endDate" label="End date">
+            {() => (
+              <DatePicker
+                value={endDate}
+                minDate={startDate}
+                disabledDateFilter={weekendFilter}
+                onChange={(date) => setEndDate(date)}
+              />
+            )}
+          </Field>
+        </DateContainer>
         <Field name="holidays" label="# of holidays">
           {() => (
             <Textfield
@@ -126,12 +109,17 @@ const SprintLengthEditorView = () => {
             />
           )}
         </Field>
-        <DayCountText>
-          {strings.dayCount(numBusinessDaysInSprint - numHolidays)}
-        </DayCountText>
-        <DayCountSubtext>{strings.excludesWeekends}</DayCountSubtext>
+        <ViewUI.SummaryContainer>
+          <ViewUI.SummaryText>
+            {strings.dayCount(numBusinessDaysInSprint - numHolidays)}
+          </ViewUI.SummaryText>
+          <ViewUI.SummarySubtext>
+            {strings.excludesWeekends}
+          </ViewUI.SummarySubtext>
+        </ViewUI.SummaryContainer>
       </ViewUI.Body>
       <ViewUI.Footer>
+        <Button onClick={popView}>{strings.buttons.previous}</Button>
         <Button
           isDisabled={!isNextButtonEnabled}
           appearance={'primary'}

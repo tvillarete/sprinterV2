@@ -1,4 +1,4 @@
-export type Member = {
+export type Contributor = {
   id: string;
   name: string;
   percentWorking: number;

@@ -19,7 +19,7 @@ const SprintManager = () => {
   );
 
   useEffect(() => {
-    const initialView: keyof typeof Views = 'MemberEditor';
+    const initialView: keyof typeof Views = 'Contributors';
 
     const initialViewProps = {};
 
