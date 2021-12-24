@@ -1,3 +1,4 @@
+import { colors } from '@atlaskit/theme';
 import styled from '@emotion/styled';
 import SprintManager from 'components/SprintManager';
 
@@ -14,8 +15,7 @@ const FlowContainer = styled.div`
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  padding: 8px;
-  background: white;
+  background: ${colors.DN10};
 `;
 
 function App() {

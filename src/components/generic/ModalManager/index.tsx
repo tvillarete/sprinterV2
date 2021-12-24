@@ -18,8 +18,6 @@ type HideModalSources = 'escKey' | 'overlayClick';
 const ModalManager = () => {
   const { hideModal, modalStack } = useModalContext();
 
-  console.log({ modalStack });
-
   const hideTopmostModal = useCallback(
     (source: HideModalSources) => {
       const curModal = modalStack.length

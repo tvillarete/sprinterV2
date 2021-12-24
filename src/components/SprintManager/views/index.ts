@@ -1,9 +1,13 @@
 import ContributorsView from './ContributorsView';
-import SprintLengthEditorView from './SprintLengthEditorView';
+import FirstTimeSetupView from './FirstTimeSetupView';
+import SprintLengthView from './SprintLengthView';
+import SummaryView from './SummaryView';
 
 const Views = {
   Contributors: ContributorsView,
-  SprintLengthEditor: SprintLengthEditorView,
+  FirstTimeSetup: FirstTimeSetupView,
+  SprintLength: SprintLengthView,
+  Summary: SummaryView,
 };
 
 export default Views;

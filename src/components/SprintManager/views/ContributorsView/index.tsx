@@ -59,7 +59,7 @@ const ContributorsView = () => {
 
     pushView({
       title: 'Sprint contributors',
-      component: Views.SprintLengthEditor,
+      component: Views.SprintLength,
     });
   }, [contributors, pushView, updateSprintValue]);
 
@@ -70,9 +70,7 @@ const ContributorsView = () => {
         <ViewUI.FlexContainer>
           <ContributorsList
             contributors={contributors}
-            onChange={(updatedContributors) =>
-              setContributors(updatedContributors)
-            }
+            onChange={setContributors}
           />
         </ViewUI.FlexContainer>
         <ViewUI.SummaryContainer>

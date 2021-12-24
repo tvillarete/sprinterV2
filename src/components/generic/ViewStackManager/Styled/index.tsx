@@ -13,7 +13,7 @@ const Container = styled.div`
     'main'
     'footer';
   height: 100%;
-  padding: 8px;
+  padding: 16px;
   background: white;
 `;
 

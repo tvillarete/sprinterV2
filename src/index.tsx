@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { colors } from '@atlaskit/theme';
 import { css, Global } from '@emotion/react';
 import { ModalManager } from 'components/generic';
 import { ModalContextProvider } from 'contexts/ModalContext';
@@ -11,8 +12,8 @@ import reportWebVitals from './reportWebVitals';
 const GlobalStyle = css`
   body {
     margin: 0;
-    background: #fafbfc;
     height: 100vh;
+    background: ${colors.DN10};
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
       'Segoe UI Symbol';

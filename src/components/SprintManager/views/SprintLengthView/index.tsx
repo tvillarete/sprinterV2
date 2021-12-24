@@ -12,6 +12,9 @@ import { useViewStackContext } from 'contexts/ViewStackContext';
 import { DateTime } from 'luxon';
 import pluralize from 'pluralize';
 import { getNumBusinessDays } from 'utils/date';
+import { getTotalWorkingDays } from 'utils/sprint';
+
+import Views from '../';
 
 const ViewUI = ViewStackManager.Styled;
 
@@ -33,7 +36,7 @@ const weekendFilter = (date: string) => {
 const strings = {
   title: `Sprint length`,
   dayCount: (numDays: number) =>
-    `${numDays} working ${pluralize('days', numDays)}`,
+    `${numDays} sprint ${pluralize('days', numDays)}`,
   excludesWeekends: `Excludes weekends & holidays`,
   buttons: {
     next: 'Next: Something',
@@ -41,7 +44,7 @@ const strings = {
   },
 };
 
-const SprintLengthEditorView = () => {
+const SprintLengthView = () => {
   const { sprintState, updateSprintValue } = useSprintContext();
   const [startDate, setStartDate] = useState(sprintState.startDate.toISODate());
   const [endDate, setEndDate] = useState(sprintState.endDate.toISODate());
@@ -54,18 +57,40 @@ const SprintLengthEditorView = () => {
     return getNumBusinessDays(startDate, endDate);
   }, [endDate, startDate]);
 
+  const totalWorkingDays = useMemo(() => {
+    return getTotalWorkingDays({
+      contributors: sprintState.contributors,
+      startDate: sprintState.startDate.toISO(),
+      endDate: sprintState.endDate.toISO(),
+      numHolidays: sprintState.numHolidays,
+    });
+  }, [
+    sprintState.contributors,
+    sprintState.endDate,
+    sprintState.numHolidays,
+    sprintState.startDate,
+  ]);
+
   const isNextButtonEnabled = numBusinessDaysInSprint - numHolidays > 0;
 
   const handleConfirm = useCallback(() => {
     updateSprintValue('startDate', DateTime.fromISO(startDate));
     updateSprintValue('endDate', DateTime.fromISO(endDate));
     updateSprintValue('numHolidays', numHolidays);
+    updateSprintValue('totalWorkingDays', totalWorkingDays);
 
     pushView({
-      title: 'hi',
-      component: SprintLengthEditorView,
+      title: 'First time setup',
+      component: Views.FirstTimeSetup,
     });
-  }, [endDate, numHolidays, pushView, startDate, updateSprintValue]);
+  }, [
+    endDate,
+    numHolidays,
+    pushView,
+    startDate,
+    totalWorkingDays,
+    updateSprintValue,
+  ]);
 
   return (
     <ViewUI.Container>
@@ -132,4 +157,4 @@ const SprintLengthEditorView = () => {
   );
 };
 
-export default SprintLengthEditorView;
+export default SprintLengthView;

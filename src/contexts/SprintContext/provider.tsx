@@ -9,6 +9,13 @@ export interface SprintContextState {
   startDate: DateTime;
   endDate: DateTime;
   numHolidays: number;
+  totalWorkingDays: number;
+  numStoryPointsCommitted: number;
+
+  /** Past sprint data */
+  numPointsCommittedLastSprint: number;
+  numPointsCompletedLastSprint: number;
+  pointsPerWorkingDayLastSprint: number;
 }
 
 type SprintContextType = [
@@ -21,6 +28,12 @@ const defaultState: SprintContextState = {
   startDate: DateTime.fromJSDate(nextMonday(Date.now())),
   endDate: DateTime.fromJSDate(nextMonday(Date.now())).plus({ days: 14 }),
   numHolidays: 0,
+  totalWorkingDays: 0,
+  numStoryPointsCommitted: 0,
+
+  numPointsCommittedLastSprint: 0,
+  numPointsCompletedLastSprint: 0,
+  pointsPerWorkingDayLastSprint: 0,
 };
 
 export const SprintContext = createContext<SprintContextType>([
